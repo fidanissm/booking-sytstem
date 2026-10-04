@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oturacaq Seçimi - AeroJet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="fa-solid fa-plane-departure"></i> AeroJet</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Ana Səhifə</a></li>
+            <li><a href="ucuslar.html">Uçuşlar</a></li>
+            <li><a href="kampaniyalar.html">Kampaniyalar</a></li>
+            <li><a href="komek.html">Kömək</a></li>
+            <li><a href="daxil-ol.html" class="login-btn">Daxil ol</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2 class="page-title"><i class="fa-solid fa-chair" style="color:#1e3a8a;"></i> İnteraktiv Sərnişin Salonu</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+            
+            <div class="plane-container">
+                <div class="pass-meta" style="color:#64748b;">Təyyarənin Ön Hissəsi (Burun)</div>
+                <div class="plane-cabin">
+                    <div class="seat-row business-row">
+                        <div class="seat business" onclick="selectSeat(this, '1A', 100)">1A</div>
+                        <div class="seat business occupied">1B</div>
+                        <div class="seat-aisle"></div>
+                        <div class="seat business" onclick="selectSeat(this, '1C', 100)">1C</div>
+                        <div class="seat business" onclick="selectSeat(this, '1D', 100)">1D</div>
+                    </div>
+                    <div class="seat-row business-row">
+                        <div class="seat business" onclick="selectSeat(this, '2A', 100)">2A</div>
+                        <div class="seat business" onclick="selectSeat(this, '2B', 100)">2B</div>
+                        <div class="seat-aisle"></div>
+                        <div class="seat business occupied">2C</div>
+                        <div class="seat business" onclick="selectSeat(this, '2D', 100)">2D</div>
+                    </div>
+                    
+                    <hr style="margin:20px 0; border:none; border-top:2px dashed #cbd5e1;">
+
+                    <div class="seat-row">
+                        <div class="seat" onclick="selectSeat(this, '5A', 0)">5A</div>
+                        <div class="seat" onclick="selectSeat(this, '5B', 0)">5B</div>
+                        <div class="seat-aisle"></div>
+                        <div class="seat occupied">5C</div>
+                        <div class="seat" onclick="selectSeat(this, '5D', 0)">5D</div>
+                    </div>
+                    <div class="seat-row">
+                        <div class="seat occupied">6A</div>
+                        <div class="seat" onclick="selectSeat(this, '6B', 0)">6B</div>
+                        <div class="seat-aisle"></div>
+                        <div class="seat" onclick="selectSeat(this, '6C', 0)">6C</div>
+                        <div class="seat" onclick="selectSeat(this, '6D', 0)">6D</div>
+                    </div>
+                    <div class="seat-row">
+                        <div class="seat" onclick="selectSeat(this, '7A', 0)">7A</div>
+                        <div class="seat" onclick="selectSeat(this, '7B', 0)">7B</div>
+                        <div class="seat-aisle"></div>
+                        <div class="seat" onclick="selectSeat(this, '7C', 0)">7C</div>
+                        <div class="seat" onclick="selectSeat(this, '7D', 0)">7D</div>
+                    </div>
+                </div>
+
+                <div class="seat-legend">
+                    <div class="legend-item"><div class="seat"></div> Boş</div>
+                    <div class="legend-item"><div class="seat business"></div> Biznes</div>
+                    <div class="legend-item"><div class="seat selected"></div> Seçilən</div>
+                    <div class="legend-item"><div class="seat occupied"></div> Dolu</div>
+                </div>
+            </div>
+
+            <div style="background:white; padding:35px; border-radius:20px; border:1px solid #e2e8f0;">
+                <h3 style="color:#1e3a8a; margin-bottom:20px;"><i class="fa-solid fa-circle-info"></i> Seçim Detalları</h3>
+                <div style="display:flex; flex-direction:column; gap:15px; font-size:1rem;">
+                    <div style="display:flex; justify-content:space-between; border-bottom:1px dashed #eee; padding-bottom:10px;">
+                        <span style="color:#64748b;">Seçilmiş Oturacaq:</span>
+                        <b id="display-seat-no" style="color:#1e3a8a; font-size:1.2rem;">Seçilməyib</b>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; border-bottom:1px dashed #eee; padding-bottom:10px;">
+                        <span style="color:#64748b;">Əlavə Komfort Haqqı:</span>
+                        <b id="display-extra-price" style="color:#10b981; font-size:1.2rem;">0 ₼</b>
+                    </div>
+                    <p style="font-size:0.8rem; color:#64748b; line-height:1.5; margin-top:10px;">
+                        * Qeyd: Biznes klas oturacaqları ön hissədə yerləşir və tarif üzərinə əlavə 100 ₼ komfort haqqı tətbiq olunur.
+                    </p>
+                    <button type="button" class="book-btn" style="max-width:100%; margin-top:20px; height:50px; font-size:1.1rem;" onclick="confirmSeatSelection()">Seçimi Təsdiqlə</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let selectedSeatNo = null;
+
+        function selectSeat(element, seatNo, extraCost) {
+            // Əgər oturacaq doludursa işləməsin
+            if(element.classList.contains('occupied')) return;
+
+            // Əvvəlki seçilmiş oturacağı təmizləyirik
+            document.querySelectorAll('.seat.selected').forEach(el => el.classList.remove('selected'));
+
+            // Yeni oturacağı aktiv edirik
+            element.classList.add('selected');
+            selectedSeatNo = seatNo;
+
+            // Sağ tərəfdəki məlumat panelini canlı yeniləyirik
+            document.getElementById('display-seat-no').innerText = seatNo;
+            document.getElementById('display-extra-price').innerText = extraCost + " ₼";
+        }
+
+        function confirmSeatSelection() {
+            if(!selectedSeatNo) {
+                window.showToast('Zəhmət olmasa təyyarə daxilindən bir yer seçin!', 'error');
+                return;
+            }
+            window.showToast(`Oturacaq uğurla rezerv olundu: ${selectedSeatNo}. Axtarışa yönləndirilirsiniz...`);
+            setTimeout(() => window.location.href = 'index.html', 2000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uçuşlar Paneli - AeroJet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="fa-solid fa-plane-departure"></i> AeroJet</a>
+        <ul class="nav-links">
+    <li><a href="index.html">Ana Səhifə</a></li>
+    <li><a href="ucuslar.html">Uçuşlar</a></li>
+    <li><a href="seat-selection.html"><i class="fa-solid fa-chair"></i> Yer Seçimi</a></li>
+    <li><a href="flight-status.html"><i class="fa-solid fa-tower-broadcast"></i> Canlı Radar</a></li>
+    <li><a href="kampaniyalar.html">Kampaniyalar</a></li>
+    <li><a href="komek.html">Kömək</a></li>
+    <li><a href="daxil-ol.html" class="login-btn">Daxil ol</a></li>
+</ul>
+    </nav>
+
+    <div class="container">
+        <div class="page-layout">
+            
+            <!-- Canlı Filtr və Sıralama Paneli -->
+            <aside class="filter-sidebar">
+                <div class="filter-section">
+                    <h4>Sıralama</h4>
+                    <select id="sort-select" style="width:100%; padding:8px; border-radius:6px; border:1px solid #ccc;">
+                        <option value="all">Müqayisəli</option>
+                        <option value="low">Ucuzdan Bahaya</option>
+                        <option value="high">Bahadan Ucuza</option>
+                    </select>
+                </div>
+                <div class="filter-section">
+                    <h4>Aviaşirkətlər</h4>
+                    <label class="filter-option"><input type="checkbox" class="airline-filter" value="AZAL" checked> AZAL</label>
+                    <label class="filter-option"><input type="checkbox" class="airline-filter" value="Turkish Airlines" checked> Turkish Airlines</label>
+                    <label class="filter-option"><input type="checkbox" class="airline-filter" value="Pegasus" checked> Pegasus</label>
+                    <label class="filter-option"><input type="checkbox" class="airline-filter" value="Air France" checked> Air France</label>
+                </div>
+            </aside>
+
+            <!-- Uçuş Kartlarının Listəsi -->
+            <main id="flights-catalog-list">
+                <!-- Kartlar JS tərəfindən idarə olunur -->
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Səhifəyə özəl interaktiv kataloq filtrləmə skripti
+        const catalogList = document.getElementById('flights-catalog-list');
+        const sortSelect = document.getElementById('sort-select');
+
+        function renderCatalog() {
+            let currentData = [...mockFlights];
+            
+            // 1. Şirkət Filtri
+            const activeAirlines = Array.from(document.querySelectorAll('.airline-filter:checked')).map(el => el.value);
+            currentData = currentData.filter(f => activeAirlines.includes(f.airline));
+
+            // 2. Sıralama
+            if (sortSelect.value === "low") currentData.sort((a,b) => a.price - b.price);
+            if (sortSelect.value === "high") currentData.sort((a,b) => b.price - a.price);
+
+            catalogList.innerHTML = '';
+            if(currentData.length === 0) {
+                catalogList.innerHTML = '<p>Seçilmiş filtrlərə uyğun uçuş tapılmadı.</p>';
+                return;
+            }
+
+            currentData.forEach(f => {
+                catalogList.innerHTML += `
+                    <div class="flight-card">
+                        <div class="airline-info">
+                            <i class="fa-solid fa-plane-up airline-logo"></i>
+                            <div class="airline-name"><h3>${f.airline}</h3><p>${f.flightNo} | Ekonom</p></div>
+                        </div>
+                        <div class="flight-time">
+                            <div><div class="time">${f.depTime}</div><div class="city">${f.origin}</div></div>
+                            <div class="route-line"><div class="duration">${f.duration}</div></div>
+                            <div><div class="time">${f.arrTime}</div><div class="city">${f.dest}</div></div>
+                        </div>
+                        <div class="flight-price-zone">
+                            <h2>${f.price} ₼</h2>
+                            <button class="book-btn" onclick="buyTicket(${f.id}, ${f.price}, 'economy')">Bilet Al</button>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        document.querySelectorAll('.airline-filter').forEach(el => el.addEventListener('change', renderCatalog));
+        sortSelect.addEventListener('change', renderCatalog);
+        window.addEventListener('DOMContentLoaded', renderCatalog);
+    </script>
+</body>
+</html>

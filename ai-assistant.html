@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Bələdçi & Hədiyyə Çarxı — AeroJet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .ai-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px; }
+        .mile-box { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 25px; border-radius: 16px; text-align: center; margin-bottom: 25px;}
+        .mile-box h1 { font-size: 3.2rem; margin: 5px 0; font-weight: 700;}
+        .ai-card { background: var(--bg-card); border: 1px solid var(--border-color); padding: 30px; border-radius: 16px; }
+        .ai-input { width: 100%; padding: 12px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--input-text); border-radius: 8px; font-size: 1rem; margin-bottom: 15px; outline: none;}
+        .ai-btn { width: 100%; padding: 12px; background: #f59e0b; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px;}
+        .ai-response { background: var(--bg-body); border-left: 4px solid #3b82f6; padding: 20px; border-radius: 8px; margin-top: 20px; min-height: 120px; line-height: 1.6; font-size: 0.95rem;}
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="fa-solid fa-plane-departure"></i> AeroJet</a>
+        <ul class="nav-links">
+            </ul>
+    </nav>
+
+    <div class="container">
+        <h2 class="page-title"><i class="fa-solid fa-gift" style="color:#f59e0b;"></i> AeroJet Əyləncə və AI Dünyası</h2>
+        
+        <div class="ai-layout">
+            
+            <div>
+                <div class="mile-box">
+                    <i class="fa-solid fa-medal" style="font-size: 2.5rem; color: #f59e0b;"></i>
+                    <h4 style="margin-top:5px; font-weight:400;">Toplanmış Səyahət Milləriniz</h4>
+                    <h1 id="total-miles">0</h1>
+                    <p style="font-size:0.8rem; color:#dbeafe;">Səyahət etdikcə milləriniz avtomatik çoxalır.</p>
+                </div>
+
+                <div class="wheel-wrapper">
+                    <h3 style="color:var(--text-main);"><i class="fa-solid fa-circle-radiation" style="color:#10b981;"></i> Gündəlik Bonus Çarxı</h3>
+                    <p style="color:var(--text-muted); font-size:0.8rem; margin-bottom:10px;">Çarxı fırladaraq pulsuz balans və ya əlavə millər qazanın!</p>
+                    
+                    <div class="wheel-outer">
+                        <div class="wheel-pointer"></div>
+                        <div class="wheel-graphic" id="lucky-wheel-graphic"></div>
+                    </div>
+
+                    <button type="button" class="spin-btn" id="spin-btn-element" onclick="spinLuckyWheel()">
+                        <i class="fa-solid fa-play"></i> Çarxı Fırlat
+                    </button>
+                </div>
+            </div>
+
+            <div class="ai-card">
+                <h3 style="color:var(--text-main);"><i class="fa-solid fa-wand-magic-sparkles" style="color:#3b82f6;"></i> Süni İntellekt Səyahət Bələdçisi</h3>
+                <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:15px;">İstənilən dünya şəhərini yazın, AI sizə saniyələr daxilində tam gəzinti planı generasiya etsin.</p>
+                
+                <input type="text" id="ai-destination-city" class="ai-input" placeholder="Məsələn: Tokio, Nyu-York, London, Roma...">
+                <button type="button" class="ai-btn" id="generate-plan-btn"><i class="fa-solid fa-bolt"></i> Planı Generasiya Et</button>
+
+                <div id="ai-output" class="ai-response">
+                    <p style="color:var(--text-muted); text-align:center; padding-top:20px;">AI Bələdçinin sizə cavab verməsi üçün yuxarıya şəhər adı daxil edin.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById('total-miles').innerText = localStorage.getItem('userMiles') || '0';
+
+            document.getElementById('generate-plan-btn').addEventListener('click', () => {
+                const city = document.getElementById('ai-destination-city').value.trim();
+                const output = document.getElementById('ai-output');
+                if(!city) return;
+
+                output.innerHTML = '<div style="text-align:center;"><i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem; color:#3b82f6;"></i><p style="font-size:0.8rem; margin-top:5px;">AI Plan qurur...</p></div>';
+
+                setTimeout(() => {
+                    output.innerHTML = `
+                        <h4 style="color:#3b82f6; margin-bottom:10px;">✈️ ${city.toUpperCase()} SƏYAHƏT MARŞRUTU:</h4>
+                        <p><b>Giriş:</b> ${city} dünyanın ən çox turist cəlb edən möhtəşəm nöqtələrindən biridir.</p>
+                        <p style="margin-top:8px;"><b>Təklif:</b> Səhər tezdən şəhərin tarixi mərkəzlərini gəzin. Günorta ən məşhur yerli restoranlarda şam edin. Axşam isə AeroJet tərəfdaşlıq otellərində dincəlin.</p>
+                    `;
+                }, 1200);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş - AeroJet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-wrapper { height: 100vh; display: flex; justify-content: center; align-items: center; background: #0f172a; }
+        .auth-card { background: white; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-width: 400px; width: 100%; }
+        .form-element { margin-bottom: 15px; display: flex; flex-direction: column; }
+        .form-element label { font-weight: 500; margin-bottom: 6px; font-size: 0.85rem;}
+        .form-element input { padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; }
+        .auth-submit-btn { width: 100%; padding: 12px; background: #1e3a8a; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="fa-solid fa-plane-departure"></i> AeroJet</a>
+       <ul class="nav-links">
+    <li><a href="index.html">Ana Səhifə</a></li>
+    <li><a href="ucuslar.html">Uçuşlar</a></li>
+    <li><a href="seat-selection.html"><i class="fa-solid fa-chair"></i> Yer Seçimi</a></li>
+    <li><a href="flight-status.html"><i class="fa-solid fa-tower-broadcast"></i> Canlı Radar</a></li>
+    <li><a href="kampaniyalar.html">Kampaniyalar</a></li>
+    <li><a href="komek.html">Kömək</a></li>
+    <li><a href="daxil-ol.html" class="login-btn">Daxil ol</a></li>
+</ul>
+    </nav>
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <h2 style="color:#1e3a8a; text-align:center; margin-bottom:20px;"><i class="fa-solid fa-user-shield"></i> Hesaba Giriş</h2>
+            <form id="login-form-submit">
+                <div class="form-element">
+                    <label>E-poçt ünvanı</label>
+                    <input type="email" id="email-field" placeholder="Məs: murad@mail.com" required>
+                </div>
+                <div class="form-element">
+                    <label>Şifrə</label>
+                    <input type="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="auth-submit-btn">Sistemə Daxil Ol</button>
+            </form>
+            <a href="index.html" style="display:block; text-align:center; margin-top:15px; color:#1e3a8a; text-decoration:none; font-size:0.9rem;">Geri Qayıt</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form-submit').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const mail = document.getElementById('email-field').value;
+            
+            localStorage.setItem('activeUser', mail);
+            if(!localStorage.getItem('userBalance')) {
+                localStorage.setItem('userBalance', '1000.00'); // Yeni qeydiyyata hədiyyə balans
+            }
+
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

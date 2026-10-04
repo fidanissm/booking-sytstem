@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yardım Mərkəzi - AeroJet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="fa-solid fa-plane-departure"></i> AeroJet</a>
+        <ul class="nav-links">
+            </ul>
+    </nav>
+
+    <div class="container">
+        <h2 class="page-title"><i class="fa-solid fa-headset" style="color:#3b82f6;"></i> Sizə Necə Kömək Edə Bilərik?</h2>
+        
+        <div class="help-layout">
+            <div>
+                <div class="category-grid">
+                    <div class="cat-card" onclick="window.showToast('Baqaj Qaydaları: Ekonom üçün 23kq, Biznes üçün 32kq bagaj tamamilə ödənişsizdir.')">
+                        <i class="fa-solid fa-suitcase-rolling"></i>
+                        <h4>Baqaj Qaydaları</h4>
+                    </div>
+                    <div class="cat-card" onclick="window.showToast('Geri Ödəniş: Ləğv edilən biletlərin məbləği 5 dəqiqə daxilində virtual balansınıza geri qayıdır.')">
+                        <i class="fa-solid fa-credit-card"></i>
+                        <h4>Geri Ödəniş</h4>
+                    </div>
+                    <div class="cat-card" onclick="window.showToast('Hesab Problemi: Şifrənizi unutmusunuzsa, daxil-ol səhifəsindən yeni fake email ilə yenidən girə bilərsiniz.')">
+                        <i class="fa-solid fa-user-gear"></i>
+                        <h4>Hesab Problemi</h4>
+                    </div>
+                </div>
+
+                <div class="premium-faq">
+                    <h3 style="color:var(--text-main); margin-bottom:15px; border-bottom:1px solid var(--border-color); padding-bottom:10px;">Tez-tez verilən suallar</h3>
+                    
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">Aldığım biletləri haradan və necə görə bilərəm? <i class="fa-solid fa-chevron-down"></i></div>
+                        <div class="faq-answer">Uğurla aldığınız bütün biletlər mərkəzi profilinizə köçürülür. Giriş etdikdən sonra navbar menyusunda adınızın üzərinə gələrək &quot;Kabinetim&quot; bölməsinə keçid edə və biletlərinizin barkodlu elektron versiyasına (Boarding Pass) baxa bilərsiniz.</div>
+                    </div>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">Virtual Balans və Səyahət Milləri necə işləyir? <i class="fa-solid fa-chevron-down"></i></div>
+                        <div class="faq-answer">Qeydiyyatdan keçən hər kəsə bilet ala bilməsi üçün avtomatik 1000 ₼ virtual balans verilir. Hər bilet aldıqca isə məbləğin 10%-i qədər Səyahət Mili qazanırsınız. Səyahət millərinizi &quot;AI Bələdçi &amp; Mil&quot; səhifəsindən izləyə bilərsiniz.</div>
+                    </div>
+
+                    <div class="faq-item" onclick="this.classList.toggle('active')">
+                        <div class="faq-question">Uçuşa onlayn qeydiyyat (Check-in) nə vaxt başlayır? <i class="fa-solid fa-chevron-down"></i></div>
+                        <div class="faq-answer">Onlayn check-in xidməti uçuşa tam 24 saat qaldıqda AeroJet sistemi üzərindən avtomatik aktivləşir və təyyarənin qalxmasına 3 saat qaldıqda tamamilə bağlanır.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="operator-card">
+                <div class="operator-avatar">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTV0XLfjw77bQMxaz8zQch8XRUt6U5yLQWQfg&s" alt="Operator">
+                    <div class="online-dot"></div>
+                </div>
+                <h3>ALİCA</h3>
+                <p style="color:var(--text-muted); font-size:0.85rem; margin-top:2px;">Müştəri Xidmətləri Rəhbəri</p>
+                <p style="color:var(--text-main); font-size:0.85rem; margin-top:15px; line-height:1.5;">Hər hansı bir sualınız və ya çətinliyiniz var? Canlı operatorumuz hazırda sistemdə aktivdir.</p>
+                <button type="button" class="chat-btn" onclick="startLiveChatSim()"><i class="fa-regular fa-comments"></i> Canlı Çatı Başlat</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

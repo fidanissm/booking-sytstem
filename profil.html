@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şəxsi Kabinet — AeroJet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="fa-solid fa-plane-departure"></i> AeroJet</a>
+        <ul class="nav-links">
+            </ul>
+    </nav>
+
+    <div class="container" style="margin-top:130px;">
+        
+        <div id="admin-view-section" class="hidden" style="margin-bottom: 40px;">
+            <h3 style="margin-bottom: 20px; font-weight: 600; color: var(--text-main);"><i class="fa-solid fa-chart-pie"></i> Sistem Analitikası</h3>
+            <div class="admin-dashboard">
+                <div class="admin-stat-card">
+                    <i class="fa-solid fa-wallet"></i>
+                    <h3>Ümumi Gəlir</h3>
+                    <h2 id="adm-total-revenue" style="color: #10b981;">0 ₼</h2>
+                </div>
+                <div class="admin-stat-card">
+                    <i class="fa-solid fa-ticket"></i>
+                    <h3>Satılan Bilet</h3>
+                    <h2 id="adm-total-tickets">0 Reys</h2>
+                </div>
+                <div class="admin-stat-card">
+                    <i class="fa-solid fa-route"></i>
+                    <h3>Top İstiqamət</h3>
+                    <h2 id="adm-top-dest" style="color: #f59e0b;">N/A</h2>
+                </div>
+            </div>
+        </div>
+
+        <div id="user-view-section" class="profile-container">
+            
+            <div class="profile-card-left">
+                <div class="profile-pic"><i class="fa-solid fa-user-ninja"></i></div>
+                <h3 id="u-name" style="letter-spacing: 0.5px;">GÜNLÜK İSTİFADƏÇİ</h3>
+                <p id="u-email"></p>
+                
+                <div class="balance-card">
+                    <p>Mövcud Balans</p>
+                    <h3 id="u-balance">0.00 ₼</h3>
+                </div>
+                <button type="button" class="add-money-btn" id="add-funds-btn">
+                    <i class="fa-solid fa-circle-plus"></i> Balansı Artır (+500 ₼)
+                </button>
+            </div>
+
+            <div class="profile-main-right">
+                <h3 style="color: var(--text-main); font-weight: 600; margin-bottom: 25px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fa-solid fa-receipt" style="color:#3b82f6;"></i> Aktiv Səyahət Sənədlərim
+                </h3>
+                <div id="tickets-history-box">
+                    </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <div id="ticket-modal" class="modal-overlay hidden">
+        <div class="boarding-pass">
+            <span class="close-pass" id="close-modal-btn">&times;</span>
+            <div class="pass-header">
+                <h2>BOARDING PASS</h2>
+                <div id="m-airline" style="font-weight:700; font-size:1.1rem; color:#ffffff;">AeroJet</div>
+            </div>
+            <div class="pass-body">
+                <div><div class="pass-meta">Sərnişin</div><div class="pass-val" id="m-user">M. MURAD</div></div>
+                <div><div class="pass-meta">Uçuş No</div><div class="pass-val" id="m-flightno">AZ-404</div></div>
+                <div><div class="pass-meta">Klas</div><div class="pass-val" id="m-class" style="color:#f59e0b;">ECONOMY</div></div>
+                
+                <div><div class="pass-meta">Haradan</div><div class="pass-val" id="m-from">GYD</div></div>
+                <div style="display:flex; align-items:center; justify-content:center;"><i class="fa-solid fa-plane" style="color:rgba(255,255,255,0.2); font-size:1.5rem;"></i></div>
+                <div><div class="pass-meta">Haraya</div><div class="pass-val" id="m-to">IST</div></div>
+                
+                <div><div class="pass-meta">Saat</div><div class="pass-val" id="m-time">12:00</div></div>
+                <div><div class="pass-meta">Oturacaq</div><div class="pass-val" id="m-seat" style="color:#60a5fa;">14A</div></div>
+                <div><div class="pass-meta">Status</div><div class="pass-val" style="color:#10b981;">AKTİV</div></div>
+            </div>
+            <div class="pass-footer">
+                <div style="text-align: left;">
+                    <div class="pass-meta">Elektron Tiket ID</div>
+                    <div id="m-code" class="pass-val">TKT-000000</div>
+                </div>
+                <div class="barcode">1234567890</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const activeUser = localStorage.getItem('activeUser');
+            if (!activeUser) { window.location.href = 'daxil-ol.html'; return; }
+
+            // Admin panel yoxlanışı
+            if(activeUser === "admin@aerojet.com") {
+                document.getElementById('admin-view-section').classList.remove('hidden');
+                const sales = JSON.parse(localStorage.getItem('adminSales') || '[]');
+                let rev = 0;
+                sales.forEach(s => rev += s.price);
+                document.getElementById('adm-total-revenue').innerText = window.formatPrice(rev);
+                document.getElementById('adm-total-tickets').innerText = sales.length + " Ədəd";
+                document.getElementById('adm-top-dest').innerText = sales.length > 0 ? sales[sales.length - 1].dest : "İstanbul";
+            }
+
+            document.getElementById('u-email').innerText = activeUser;
+            document.getElementById('u-name').innerText = activeUser.split('@')[0].toUpperCase();
+            
+            function updateBalance() {
+                const bal = parseFloat(localStorage.getItem('userBalance') || '1000');
+                document.getElementById('u-balance').innerText = window.formatPrice(bal);
+            }
+            updateBalance();
+
+            document.getElementById('add-funds-btn').addEventListener('click', () => {
+                let bal = parseFloat(localStorage.getItem('userBalance') || '1000');
+                bal += 500;
+                localStorage.setItem('userBalance', bal.toFixed(2));
+                updateBalance();
+                window.showToast('Balansınıza +500 virtual pul yükləndi!');
+            });
+
+            // Səyahət sənədlərini listələmək
+            const box = document.getElementById('tickets-history-box');
+            const tickets = JSON.parse(localStorage.getItem('userTickets') || '[]');
+
+            if (tickets.length === 0) {
+                box.innerHTML = `
+                    <div style="text-align:center; padding:40px; border: 2px dashed var(--border-color); border-radius:16px;">
+                        <i class="fa-solid fa-folder-open" style="font-size:2.5rem; color:var(--text-muted); margin-bottom:10px;"></i>
+                        <p style="color:var(--text-muted); font-size:0.95rem;">Hələ ki heç bir uçuş biletiniz yoxdur.</p>
+                    </div>`;
+            } else {
+                tickets.forEach((t, i) => {
+                    box.innerHTML += `
+                        <div class="flight-card" style="border-left-color:#10b981; cursor:pointer;" onclick="openPass(${i})">
+                            <div class="airline-info">
+                                <i class="fa-solid fa-plane-arrival airline-logo" style="color:#10b981;"></i>
+                                <div class="airline-name"><h3>${t.airline}</h3><p>${t.flightNo}</p></div>
+                            </div>
+                            <div class="flight-time">
+                                <div><div class="time">${t.depTime}</div><div class="city">${t.origin}</div></div>
+                                <div class="route-line"><div class="duration" style="color:#10b981; border-bottom-color:#bbf7d0;">${t.date}</div></div>
+                                <div><div class="time">${t.arrTime}</div><div class="city">${t.dest}</div></div>
+                            </div>
+                            <div class="flight-price-zone">
+                                <span class="book-btn" style="background:#10b981; font-size:0.85rem; padding:8px 16px;">Biletə Bax <i class="fa-solid fa-qrcode"></i></span>
+                            </div>
+                        </div>`;
+                });
+            }
+        });
+
+        function openPass(i) {
+            const tickets = JSON.parse(localStorage.getItem('userTickets') || '[]');
+            const t = tickets[i];
+            document.getElementById('m-user').innerText = localStorage.getItem('activeUser').split('@')[0].toUpperCase();
+            document.getElementById('m-airline').innerText = t.airline;
+            document.getElementById('m-flightno').innerText = t.flightNo;
+            document.getElementById('m-class').innerText = t.class;
+            document.getElementById('m-from').innerText = t.origin;
+            document.getElementById('m-to').innerText = t.dest;
+            document.getElementById('m-time').innerText = t.depTime;
+            document.getElementById('m-seat').innerText = t.seat;
+            document.getElementById('m-code').innerText = t.ticketId;
+            document.getElementById('ticket-modal').classList.remove('hidden');
+        }
+
+        document.getElementById('close-modal-btn').addEventListener('click', () => {
+            document.getElementById('ticket-modal').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

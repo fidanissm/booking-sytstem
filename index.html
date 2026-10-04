@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroJet - Peşəkar Bilet Satışı</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="fa-solid fa-plane-departure"></i> AeroJet</a>
+        <ul class="nav-links">
+    <li><a href="index.html">Ana Səhifə</a></li>
+    <li><a href="ucuslar.html">Uçuşlar</a></li>
+    <li><a href="seat-selection.html"><i class="fa-solid fa-chair"></i> Yer Seçimi</a></li>
+    <li><a href="flight-status.html"><i class="fa-solid fa-tower-broadcast"></i> Canlı Radar</a></li>
+    <li><a href="kampaniyalar.html">Kampaniyalar</a></li>
+    <li><a href="komek.html">Kömək</a></li>
+    <li><a href="daxil-ol.html" class="login-btn">Daxil ol</a></li>
+</ul>
+    </nav>
+
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>Sərhədsiz Səyahət AeroJet İlə Başlayır</h1>
+            <p>Ən son veb texnologiyaları ilə sürətli, təhlükəsiz və filtrli axtarış sistemini sınayın.</p>
+            
+            <div class="search-glass-box">
+                <form id="search-form" class="search-form">
+                    <div class="input-group">
+                        <label>Haradan</label>
+                        <input type="text" id="origin" placeholder="Məsələn: Bakı" autocomplete="off" required>
+                        <ul id="origin-suggestions" class="suggestions-list hidden"></ul>
+                    </div>
+                    <div class="input-group">
+                        <label>Haraya</label>
+                        <input type="text" id="destination" placeholder="Məsələn: İstanbul" autocomplete="off" required>
+                        <ul id="destination-suggestions" class="suggestions-list hidden"></ul>
+                    </div>
+                    <div class="input-group">
+                        <label>Uçuş Klası</label>
+                        <select id="flight-class">
+                            <option value="economy">Ekonom Klas</option>
+                            <option value="business">Biznes Klas (2x ₼)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Gediş Tarixi</label>
+                        <input type="date" required>
+                    </div>
+                    <button type="submit" class="search-btn">Uçuşları Tap</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="loader" class="loader-container hidden"><div class="spinner"></div><p>Sistem axtarış edir...</p></div>
+        <div id="results"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

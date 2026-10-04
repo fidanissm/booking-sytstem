@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canlı Uçuş Statusu — AeroJet FIDS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="fa-solid fa-plane-departure"></i> AeroJet</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Ana Səhifə</a></li>
+            <li><a href="ucuslar.html">Uçuşlar</a></li>
+            <li><a href="kampaniyalar.html">Kampaniyalar</a></li>
+            <li><a href="komek.html">Kömək</a></li>
+            <li><a href="daxil-ol.html" class="login-btn">Daxil ol</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; margin-top: 120px;">
+            <h2 style="color:#0f172a;"><i class="fa-solid fa-chalkboard"></i> Canlı Səma / Uçuş İdarəetmə Lövhəsi</h2>
+            <div style="background:#1e3a8a; color:white; padding:8px 15px; border-radius:8px; font-weight:700; font-family:monospace;" id="live-fids-clock">00:00:00</div>
+        </div>
+
+        <div class="fids-board">
+            <table class="fids-table">
+                <thead>
+                    <tr>
+                        <th>Uçuş Saatı</th>
+                        <th>İstiqamət</th>
+                        <th>Aviaşirkət</th>
+                        <th>Reys No</th>
+                        <th>Terminal</th>
+                        <th>Qapı (Gate)</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="color:#f59e0b;">10:30</td>
+                        <td>İstanbul (IST)</td>
+                        <td>AZAL</td>
+                        <td>J2-810</td>
+                        <td>T1</td>
+                        <td>B12</td>
+                        <td><span class="status-pill ontime">Uçuş Uğurlu</span></td>
+                    </tr>
+                    <tr>
+                        <td style="color:#f59e0b;">14:15</td>
+                        <td>İstanbul (IST)</td>
+                        <td>Turkish Airlines</td>
+                        <td>TK-333</td>
+                        <td>T1</td>
+                        <td>A05</td>
+                        <td><span class="status-pill boarding">Qeydiyyat</span></td>
+                    </tr>
+                    <tr>
+                        <td style="color:#f59e0b;">18:00</td>
+                        <td>Dubay (DXB)</td>
+                        <td>Qatar Airways</td>
+                        <td>QR-111</td>
+                        <td>T2</td>
+                        <td>C02</td>
+                        <td><span class="status-pill delayed">Gecikir (20 dəq)</span></td>
+                    </tr>
+                    <tr>
+                        <td style="color:#f59e0b;">21:45</td>
+                        <td>London (LHR)</td>
+                        <td>British Airways</td>
+                        <td>BA-999</td>
+                        <td>T1</td>
+                        <td>B01</td>
+                        <td><span class="status-pill cancelled">Ləğv Edilib</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Rəqəmsal Saat Funksiyası
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('live-fids-clock').innerText = now.toLocaleTimeString();
+        }, 1000);
+    </script>
+</body>
+</html>
